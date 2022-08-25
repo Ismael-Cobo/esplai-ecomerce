@@ -1,10 +1,10 @@
 import express from 'express'
-import { getCliente, getClientes, newCliente } from '../controllers/clientesController.js'
+import { getCliente, getClientes, newCliente, updateCliente } from '../controllers/clientesController.js'
 
 export const router = express.Router()
 
 router.get('/', getClientes)
 router.get('/:id', getCliente)
 router.post('/', newCliente)
-router.put('/:id')
+router.put('/:id', updateCliente)
 router.delete('/:id')

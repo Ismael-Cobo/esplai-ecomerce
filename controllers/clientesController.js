@@ -58,3 +58,31 @@ export const newCliente = async (req, res = response) => {
     })
   }
 }
+
+export const updateCliente = async (req, res = response) => {
+  try {
+    const { id } = req.params
+    const cliente = await Clientes.findOne({ where: { id } })
+
+    if (cliente === null) {
+      return res.status(404).json({
+        ok: false,
+        error: 'No se ha encontrado el usuario',
+      })
+    }
+
+    const { email, nombre, direccion, poblacion, cpostal, password } = req.body
+
+    await cliente.update({ email, nombre, direccion, poblacion, cpostal, password })
+
+    return res.status(200).json({
+      ok: true,
+      data: cliente,
+    })
+  } catch ({ message }) {
+    return res.status(500).json({
+      ok: false,
+      error: message,
+    })
+  }
+}
