@@ -6,8 +6,8 @@ export const Articulos = loadSequelize.define(
   {
     nombre: DataTypes.STRING,
     descripcion: DataTypes.STRING,
-    precio: DataTypes.FLOAT,
-    estoc: DataTypes.FLOAT,
+    precio: DataTypes.FLOAT(10, 2),
+    estoc: DataTypes.FLOAT(10, 2),
   },
   { tableName: 'articulos', timestamps: false }
 )

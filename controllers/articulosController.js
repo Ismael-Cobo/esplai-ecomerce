@@ -41,3 +41,20 @@ export const getArticulo = async (req, res = response) => {
     })
   }
 }
+
+export const newArticulo = async (req, res = response) => {
+  try {
+    const { nombre, descripcion, precio, estoc } = req.body
+    const articulo = await Articulos.create({ nombre, descripcion, precio, estoc })
+
+    return res.status(200).json({
+      ok: true,
+      data: articulo,
+    })
+  } catch ({ message }) {
+    return res.status(500).json({
+      ok: false,
+      error: message,
+    })
+  }
+}
