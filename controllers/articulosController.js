@@ -11,7 +11,7 @@ export const getArticulos = async (req, res = response) => {
     })
   } catch ({ message }) {
     return res.status(500).json({
-      ok: true,
+      ok: false,
       error: message,
     })
   }
@@ -19,8 +19,16 @@ export const getArticulos = async (req, res = response) => {
 
 export const getArticulo = async (req, res = response) => {
   try {
-    const { id } = req.body
+    const { id } = req.params
+
     const articulo = await Articulos.findOne({ where: { id } })
+
+    if (articulo === null) {
+      return res.status(404).json({
+        ok: false,
+        error: 'No se ha encontrado el artículo',
+      })
+    }
 
     return res.status(200).json({
       ok: true,
@@ -28,7 +36,7 @@ export const getArticulo = async (req, res = response) => {
     })
   } catch ({ message }) {
     return res.status(500).json({
-      ok: true,
+      ok: false,
       error: message,
     })
   }
