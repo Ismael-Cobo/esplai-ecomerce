@@ -7,7 +7,7 @@ export const getArticulos = async (req, res = response) => {
 
     return res.status(200).json({
       ok: true,
-      data: [articulos],
+      data: articulos,
     })
   } catch ({ message }) {
     return res.status(500).json({
@@ -56,6 +56,7 @@ export const newArticulo = async (req, res = response) => {
       data: articulo,
     })
   } catch ({ message }) {
+    console.log(req.body, '*********************')
     return res.status(500).json({
       ok: false,
       error: message,
@@ -66,6 +67,7 @@ export const newArticulo = async (req, res = response) => {
 export const updateArticulo = async (req, res = response) => {
   try {
     const { id } = req.params
+    console.log('**********', id)
     const articulo = await Articulos.findOne({ where: { id } })
 
     if (articulo === null) {
