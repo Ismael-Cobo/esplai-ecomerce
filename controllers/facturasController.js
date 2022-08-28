@@ -42,6 +42,30 @@ export const getFactura = async (req, res = response) => {
   }
 }
 
+export const getAllFacturasByClientId = async (req, res = response) => {
+  try {
+    const { id } = req.params
+    const factura = await Facturas.findAll({ include: { model: Clientes }, where: { ClienteId: id } })
+
+    if (factura.length < 1) {
+      return res.status(404).json({
+        ok: false,
+        error: 'No se han encontrado las facturas',
+      })
+    }
+
+    return res.status(200).json({
+      ok: true,
+      data: factura,
+    })
+  } catch ({ message }) {
+    return res.status(500).json({
+      ok: false,
+      error: message,
+    })
+  }
+}
+
 export const newFactura = async (req, res = response) => {
   try {
     const { numero, fecha, direccion, poblacion, cpostal, nombre, ClienteId } = req.body
